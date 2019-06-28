@@ -7,19 +7,19 @@
       <a routerLink="/categories">Categorias</a>
     </li>
     <li class="breadcrumb-item active">
-        Formulário de categorias
+        {{pageTitle}}
       </li>
   </ol>
 </nav>
 <div class="row">
   <div class="col-md">
-    <h1 class="h2 border-left pl-2">Formulário de categorias</h1>
+    <h1 class="h2 border-left pl-2">{{pageTitle}}</h1>
   </div>
   <div class="col-md">
     <a routerLink="/categories" class="btn btn-light float-right">Voltar</a>
   </div>
 </div>
-<form>
+<form [formGroup]="categoryForm" (submit)="submitForm()">
   <div class="card">
     <div class="card-header">
       Informações sobre a categoria
@@ -28,14 +28,25 @@
       <div class="form-row">
         <div class="form-group col-md-4">
           <label for="name">Nome</label>
-          <input type="text" id="name" class="form-control">
+          <input type="text" id="name" class="form-control" formControlName = "name">
+          <div class="text-danger" *ngIf="categoryForm.get('name').invalid && categoryForm.get('name').touched">
+            sdfsdf
+            <div *ngIf="categoryForm.get('name').errors.required">Dado Obrigatório</div>
+            <div *ngIf="categoryForm.get('name').errors.minLength">Este campo deve ter no mínimo dois caracteres</div>
+          </div>
         </div>
         <div class="form-group col-md-8">
           <label for="description">Descrição</label>
-          <input type="text" id="description" class="form-control">
+          <input type="text" id="description" class="form-control" formControlName="description">
         </div>
       </div>
     </div>
   </div>
-  <button type="submit" class="btn btn-primary btn-lg float-right mt-3">Salvar</button>
+  <div class="alert alert-danger mt-4" *ngIf="serverErrorMessages.length !== 0">
+    <strong>Erro no servidor</strong>
+    <ul>
+      <li *ngFor="let error of serverErrorMessages">{{error}}</li>
+    </ul>
+  </div>
+  <button type="submit" class="btn btn-primary btn-lg float-right mt-3" [disabled]="submittingForm || categoryForm.invalid">Salvar</button>
 </form>
