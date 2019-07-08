@@ -1,13 +1,5 @@
-<nav class="mb-5">
-  <ol class="breadcrumb">
-    <li class="breadcrumb-item">
-      <a routerLink="/">Home</a>
-    </li>
-    <li class="breadcrumb-item active">
-        Lançamentos
-      </li>
-  </ol>
-</nav>
+<app-bread-crumb [itens]="[{text: 'Lançamentos'}]"></app-bread-crumb>
+
 <div class="row">
   <div class="col-md">
     <h1 class="h2 border-left pl-2">Lançamentos</h1>
@@ -27,7 +19,7 @@
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let entry of entries">
+    <tr *ngFor="let entry of resources">
       <td><strong>{{entry.name}}</strong><br/>
         <small class="text-success">{{entry.date}}</small><br/>
         <small *ngIf="entry.description">{{entry.description}}</small>

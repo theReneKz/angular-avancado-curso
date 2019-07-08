@@ -17,4 +17,8 @@ export class Entry extends BaseResourceModel {
         expense: 'Despesa',
         renevue: 'Receita'
     }
+
+    static instance(jsonData: any): Entry{
+        return Object.assign(new Entry(), jsonData);
+    }
 }

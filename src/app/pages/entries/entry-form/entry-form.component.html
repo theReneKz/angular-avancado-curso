@@ -1,16 +1,5 @@
-<nav class="mb-5">
-  <ol class="breadcrumb">
-    <li class="breadcrumb-item">
-      <a routerLink="/">Home</a>
-    </li>
-    <li class="breadcrumb-item">
-      <a routerLink="/entries">Lançamentos</a>
-    </li>
-    <li class="breadcrumb-item active">
-        {{pageTitle}}
-      </li>
-  </ol>
-</nav>
+<app-bread-crumb [itens]="[{text: 'Lançamentos', link:'/entries'}, {text: pageTitle}]"></app-bread-crumb>
+
 <div class="row">
   <div class="col-md-9">
     <h1 class="h2 border-left pl-2">{{pageTitle}}</h1>
@@ -19,7 +8,7 @@
     <a routerLink="/entries" class="btn btn-light float-right">Voltar</a>
   </div>
 </div>
-<form [formGroup]="entryForm" (submit)="submitForm()" novalidate>
+<form [formGroup]="resourceForm" (submit)="submitForm()" novalidate>
   <div class="card">
     <div class="card-header">
       Informações sobre o lançamento
@@ -33,16 +22,16 @@
                 
               </select>
               
-              <div class="text-danger" *ngIf="entryForm.get('type').invalid && entryForm.get('type').touched">
-                <div *ngIf="entryForm.get('type').errors.required">Dado Obrigatório</div>
+              <div class="text-danger" *ngIf="resourceForm.get('type').invalid && resourceForm.get('type').touched">
+                <div *ngIf="resourceForm.get('type').errors.required">Dado Obrigatório</div>
               </div>
             </div>
             <div class="form-group col-md-5">
                 <label for="name">Lançamento</label>
                 <input type="text" id="name" class="form-control" formControlName = "name"/>
-                <div class="text-danger" *ngIf="entryForm.get('name').invalid && entryForm.get('name').touched">
-                  <div *ngIf="entryForm.get('name').errors.required">Dado Obrigatório</div>
-                  <div *ngIf="entryForm.get('name').errors.minLength">Este campo deve ter no mínimo dois caracteres</div>
+                <div class="text-danger" *ngIf="resourceForm.get('name').invalid && resourceForm.get('name').touched">
+                  <div *ngIf="resourceForm.get('name').errors.required">Dado Obrigatório</div>
+                  <div *ngIf="resourceForm.get('name').errors.minLength">Este campo deve ter no mínimo dois caracteres</div>
                 </div>
             </div>
             <div class="form-group col-md-3">
@@ -53,8 +42,8 @@
                   </div>
                   <input [imask]="iMaskConfig" type="text" id="amount" class="form-control text-right" formControlName = "amount"/>
                 </div>
-                <div class="text-danger" *ngIf="entryForm.get('amount').invalid && entryForm.get('amount').touched">
-                  <div *ngIf="entryForm.get('amount').errors.required">Dado Obrigatório</div>
+                <div class="text-danger" *ngIf="resourceForm.get('amount').invalid && resourceForm.get('amount').touched">
+                  <div *ngIf="resourceForm.get('amount').errors.required">Dado Obrigatório</div>
                 </div>
             </div>
             <div class="form-group col-md-2">
@@ -67,8 +56,8 @@
                   [locale]="ptBR"
                   [showButtonBar]="true">
                 </p-calendar>
-                <div class="text-danger" *ngIf="entryForm.get('date').invalid && entryForm.get('date').touched">
-                  <div *ngIf="entryForm.get('date').errors.required">Dado Obrigatório</div>
+                <div class="text-danger" *ngIf="resourceForm.get('date').invalid && resourceForm.get('date').touched">
+                  <div *ngIf="resourceForm.get('date').errors.required">Dado Obrigatório</div>
                 </div>
             </div>
             
@@ -77,16 +66,16 @@
           <div class="form-group col-md-2">
               <label for="paid">Pago</label>
               <div class="btn-group">
-                  <label (click)="entryForm.get('paid').setValue(true)" 
+                  <label (click)="resourceForm.get('paid').setValue(true)" 
                   class="btn btn-outline-info" 
-                  [class.active]="entryForm.get('paid').value == true">Pago</label>
+                  [class.active]="resourceForm.get('paid').value == true">Pago</label>
 
-                  <label (click)="entryForm.get('paid').setValue(false)" 
+                  <label (click)="resourceForm.get('paid').setValue(false)" 
                   class="btn btn-outline-info" 
-                  [class.active]="entryForm.get('paid').value == false">Pendente</label>
+                  [class.active]="resourceForm.get('paid').value == false">Pendente</label>
               </div>
-              <div class="text-danger" *ngIf="entryForm.get('paid').invalid && entryForm.get('paid').touched">
-                <div *ngIf="entryForm.get('paid').errors.required">Dado Obrigatório</div>
+              <div class="text-danger" *ngIf="resourceForm.get('paid').invalid && resourceForm.get('paid').touched">
+                <div *ngIf="resourceForm.get('paid').errors.required">Dado Obrigatório</div>
               </div>
           </div>
           <div class="form-group col-md-3">
@@ -95,8 +84,8 @@
                 <option *ngFor="let category of categories" [value]="category.id">{{category.name}}</option>
               </select>
               
-              <div class="text-danger" *ngIf="entryForm.get('type').invalid && entryForm.get('type').touched">
-                <div *ngIf="entryForm.get('type').errors.required">Dado Obrigatório</div>
+              <div class="text-danger" *ngIf="resourceForm.get('type').invalid && resourceForm.get('type').touched">
+                <div *ngIf="resourceForm.get('type').errors.required">Dado Obrigatório</div>
               </div>
             </div>
           <div class="form-group col-md-7">
@@ -112,5 +101,5 @@
       <li *ngFor="let error of serverErrorMessages">{{error}}</li>
     </ul>
   </div>
-  <button type="submit" class="btn btn-primary btn-lg float-right mt-3" [disabled]="submittingForm || entryForm.invalid">Salvar</button>
+  <button type="submit" class="btn btn-primary btn-lg float-right mt-3" [disabled]="submittingForm || resourceForm.invalid">Salvar</button>
 </form>
