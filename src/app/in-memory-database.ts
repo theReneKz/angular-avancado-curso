@@ -23,7 +23,10 @@ export class InMemoryDatabase implements InMemoryDbService {
             amount: '100,00', type: Entry.types.expense},
             {id: 4, name: 'Serviço', categoryId: categories[5].id, 
             category: categories[5], paid: false, date: '10/05/2019', 
-            amount: '2000,00', type: Entry.types.renevue, description:"Pagamento da construção do app"}
+            amount: '2000,00', type: Entry.types.renevue, description:"Pagamento da construção do app"},
+            {id: 5, name: 'Medicamentos', categoryId: categories[1].id, 
+            category: categories[1], paid: false, date: '10/04/2019', 
+            amount: '20,00', type: Entry.types.expense, description:"Medicamentos"}
         ];
         return {categories, entries};
     }

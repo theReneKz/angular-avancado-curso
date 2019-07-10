@@ -4,7 +4,8 @@ import {Entry} from './entry.model';
 import {CategoryService} from '../../categories/shared/category.service';
 import {BaseResourceService} from '../../../shared/services/base-resource-service';
 import { Observable } from 'rxjs';
-import { flatMap, catchError} from 'rxjs/operators';
+import { map, flatMap, catchError} from 'rxjs/operators';
+import * as moment from 'moment';
 
 @Injectable({
   providedIn: 'root'
@@ -29,6 +30,18 @@ export class EntryService extends BaseResourceService<Entry>{
         return sendFn(entry);
       }),
       catchError(this.handleError)
+    );
+  }
+
+  getByMonthAndYear(month: number, year: number): Observable<Entry[]> {
+    return this.getAll().pipe(
+      map(entries => {
+        var result: Entry[] =  entries.filter(entry => {
+          const entrDate = moment(entry.date, 'dd/MM/yyyy');
+          return (entrDate.month() + 1) == month && entrDate.year() == year;
+        });
+        return result;
+      })
     );
   }
 }
